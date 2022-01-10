@@ -53,4 +53,4 @@ for filename in os.listdir('./Cogs'):
           
 #-------------------------------------------------------------------------------------------------------------------------
 
-client.run(os.environ['DISCORD_TOKEN_VALORANT'])
+client.run(os.environ('DISCORD_TOKEN_VALORANT'))
