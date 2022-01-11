@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 import os
 
+#Made by hackerman#8345
 
 match_filter = ['escalation', 'spikerush', 'deathmatch', 'competitive', 'unrated', 'replication', None]
 
