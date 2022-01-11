@@ -23,7 +23,7 @@ def sort(e):
 #----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-def link_func(user_id : int, username : str, tag : str):
+def link_func(user_id : int, user, username : str, tag : str):
 
     link = f'https://api.henrikdev.xyz/valorant/v1/account/{username}/{tag}'
     r = get(link)
@@ -35,6 +35,7 @@ def link_func(user_id : int, username : str, tag : str):
         '_id' : user_id,
         'puuid' : puuid,
         'region' : data['data']['region'],
+        'user' : user
     }
 
     try:
@@ -86,7 +87,7 @@ class Valorant(commands.Cog):
         username = split[0]
         tag = split[1]
 
-        puuid = link_func(ctx.author.id, username, tag)
+        puuid = link_func(ctx.author.id,ctx.author, username, tag)
         await ctx.send(f'``{username}#{tag}`` has been linked to this account with the puuid as ``{puuid}``')
 
 
