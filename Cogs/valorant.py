@@ -5,9 +5,8 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 import os
 
-#Made by hackerman#8345
 
-match_filter = ['escalation', 'spikerush', 'deathmatch', 'competitive', 'unrated', 'replication', None]
+match_filter_list = ['escalation', 'spikerush', 'deathmatch', 'competitive', 'unrated', 'replication', None]
 
 cluster = MongoClient(os.getenv('MONGO_LINK'))
 
@@ -53,7 +52,7 @@ def link_func(user_id : int, user, username : str, tag : str):
 
 
 
-def get_match(user_id, filter):
+def get_match(user_id, match_filter):
     user_data = collection.find_one({'_id' : user_id})
 
     region = user_data['region']
@@ -61,14 +60,14 @@ def get_match(user_id, filter):
 
     link = f'https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/{region}/{puuid}'
 
-    if filter == None:
+    if match_filter == None:
 
         r = get(link)
         data = r.json()
         return data
 
     else:
-        headers = {'filter' : filter}
+        headers = {'filter' : match_filter}
         r = get(link, headers)
         data = r.json()
         return data
@@ -96,8 +95,8 @@ class Valorant(commands.Cog):
 #----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    @commands.command()
-    async def recent(self, ctx, filter = None): 
+    @commands.command(pass_context = True)
+    async def recent(self, ctx, match_filter = None): 
 
         guild = self.client.get_guild(506485291914100737)
 
@@ -120,7 +119,7 @@ class Valorant(commands.Cog):
         sova = discord.utils.get(guild.emojis, name = 'sova')
         viper = discord.utils.get(guild.emojis, name = 'viper')
         yoru = discord.utils.get(guild.emojis, name = 'yoru')
-        #neon = discord.utils.get(guild.emojis, name = 'neon)
+        neon = discord.utils.get(guild.emojis, name = 'neon')
 
 
         #Emoji mapping 
@@ -144,7 +143,7 @@ class Valorant(commands.Cog):
             'sova' : sova,
             'viper' : viper,
             'yoru' : yoru,
-            #'neon' : neon,
+            'neon' : neon,
         }
 
         #Maps to image mapping
@@ -159,9 +158,9 @@ class Valorant(commands.Cog):
             'split' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/split.jpg',
         }
         
-        if filter in match_filter:
+        if match_filter in match_filter_list:
 
-            data = get_match(ctx.author.id, filter)
+            data = get_match(ctx.author.id, match_filter)
             
             map_name = str(data['data'][0]['metadata']['map']).lower()
             mode = str(data['data'][0]['metadata']['mode'])
