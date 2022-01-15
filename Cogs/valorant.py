@@ -23,7 +23,7 @@ def sort(e):
 #----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-def link_func(user_id : int, user, username : str, tag : str):
+def link_func(user_id : int, user : str, username : str, tag : str):
 
     link = f'https://api.henrikdev.xyz/valorant/v1/account/{username}/{tag}'
     r = get(link)
@@ -35,7 +35,7 @@ def link_func(user_id : int, user, username : str, tag : str):
         '_id' : user_id,
         'puuid' : puuid,
         'region' : data['data']['region'],
-        'user' : user
+        'user' : str(user)
     }
 
     try:
@@ -52,25 +52,31 @@ def link_func(user_id : int, user, username : str, tag : str):
 
 
 
-def get_match(user_id, match_filter):
+async def get_match(ctx, user_id : int, match_filter):
+
     user_data = collection.find_one({'_id' : user_id})
+    
+    try:
 
-    region = user_data['region']
-    puuid = user_data['puuid']
+        region = user_data['region']
+        puuid = user_data['puuid']
 
-    link = f'https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/{region}/{puuid}'
+        link = f'https://api.henrikdev.xyz/valorant/v3/by-puuid/matches/{region}/{puuid}'
 
-    if match_filter == None:
+        if match_filter == None:
 
-        r = get(link)
-        data = r.json()
-        return data
+            r = get(link)
+            data = r.json()
+            return data
 
-    else:
-        headers = {'filter' : match_filter}
-        r = get(link, headers)
-        data = r.json()
-        return data
+        else:
+            headers = {'filter' : match_filter}
+            r = get(link, headers)
+            data = r.json()
+            return data
+        
+    except TypeError:
+         await ctx.send('Link your discord account with your riot account using the .link command')
 
 
 class Valorant(commands.Cog):
@@ -86,8 +92,9 @@ class Valorant(commands.Cog):
 
         username = split[0]
         tag = split[1]
+        
 
-        puuid = link_func(ctx.author.id,ctx.author, username, tag)
+        puuid = link_func(ctx.author.id, ctx.author, username, tag)
         await ctx.send(f'``{username}#{tag}`` has been linked to this account with the puuid as ``{puuid}``')
 
 
@@ -149,18 +156,25 @@ class Valorant(commands.Cog):
         #Maps to image mapping
 
         maps = {
-            'ascent' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/ascent.jpg',
-            'bind' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/bind.jpg',
+            'ascent' : 'https://titles.trackercdn.com/valorant-api/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/splash.png',
+            'bind' : 'https://titles.trackercdn.com/valorant-api/maps/2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba/splash.png',
             'breeze' : 'https://titles.trackercdn.com/valorant-api/maps/2fb9a4fd-47b8-4e7d-a969-74b4046ebd53/splash.png',
             'fracture' : 'https://titles.trackercdn.com/valorant-api/maps/b529448b-4d60-346e-e89e-00a4c527a405/splash.png',
-            'haven' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/haven.jpg',
-            'icebox' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/icebox.jpg',
-            'split' : 'https://trackercdn.com/cdn/tracker.gg/valorant/db/maps/split.jpg',
+            'haven' : 'https://titles.trackercdn.com/valorant-api/maps/2bee0dc9-4ffe-519b-1cbd-7fbe763a6047/splash.png',
+            'icebox' : 'https://titles.trackercdn.com/valorant-api/maps/e2ad5c54-4114-a870-9641-8ea21279579a/splash.png',
+            'split' : 'https://titles.trackercdn.com/valorant-api/maps/d960549e-485c-e861-8d71-aa9d1aed12a2/splash.png',
         }
         
-        if match_filter in match_filter_list:
+        if match_filter not in match_filter_list:
 
-            data = get_match(ctx.author.id, match_filter)
+            await ctx.send(f"``{match_filter}`` is not a valid gamemode")
+
+        elif match_filter in match_filter_list:
+
+            data = await get_match(ctx, ctx.author.id, match_filter)
+
+          
+
             
             map_name = str(data['data'][0]['metadata']['map']).lower()
             mode = str(data['data'][0]['metadata']['mode'])
