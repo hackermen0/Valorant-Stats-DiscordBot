@@ -245,6 +245,29 @@ class Valorant(commands.Cog):
             red_team.sort(key = sort, reverse = True)
 
 
+            red_1 = red_team[0]
+            red_1_stats = f"``{red_1['kills']}/{red_1['deaths']}/{red_1['assists']} \nACS = {red_1['ACS']}``"
+            red_1_emoji = emojis[red_1['agent']]
+
+            red_2 = red_team[1]
+            red_2_stats = f"``{red_2['kills']}/{red_2['deaths']}/{red_2['assists']} \nACS = {red_2['ACS']}``"
+            red_2_emoji = emojis[red_2['agent']]
+
+            red_3 = red_team[2]
+            red_3_stats = f"``{red_3['kills']}/{red_3['deaths']}/{red_3['assists']} \nACS = {red_3['ACS']}``"
+            red_3_emoji = emojis[red_3['agent']]
+
+            red_4 = red_team[3]
+            red_4_stats = f"``{red_4['kills']}/{red_4['deaths']}/{red_4['assists']} \nACS = {red_4['ACS']}``"
+            red_4_emoji = emojis[red_4['agent']]
+
+            red_5 = red_team[4]
+            red_5_stats = f"``{red_5['kills']}/{red_5['deaths']}/{red_5['assists']} \nACS = {red_5['ACS']}``"
+            red_5_emoji = emojis[red_5['agent']]
+
+
+
+
             blue_1 = blue_team[0]
             blue_1_stats = f"``{blue_1['kills']}/{blue_1['deaths']}/{blue_1['assists']} \nACS = {blue_1['ACS']}``"
             blue_1_emoji = emojis[blue_1['agent']]
@@ -265,27 +288,6 @@ class Valorant(commands.Cog):
             blue_5_stats = f"``{blue_5['kills']}/{blue_5['deaths']}/{blue_5['assists']} \nACS = {blue_5['ACS']}``"
             blue_5_emoji = emojis[blue_5['agent']]
 
-
-
-            red_1 = red_team[0]
-            red_1_stats = f"``{red_1['kills']}/{red_1['deaths']}/{red_1['assists']} \nACS = {red_1['ACS']}``"
-            red_1_emoji = emojis[red_1['agent']]
-
-            red_2 = red_team[1]
-            red_2_stats = f"``{red_2['kills']}/{red_2['deaths']}/{red_2['assists']} \nACS = {red_2['ACS']}``"
-            red_2_emoji = emojis[red_2['agent']]
-
-            red_3 = red_team[2]
-            red_3_stats = f"``{red_3['kills']}/{red_3['deaths']}/{red_3['assists']} \nACS = {red_3['ACS']}``"
-            red_3_emoji = emojis[red_3['agent']]
-
-            red_4 = red_team[3]
-            red_4_stats = f"``{red_4['kills']}/{red_4['deaths']}/{red_4['assists']} \nACS = {red_4['ACS']}``"
-            red_4_emoji = emojis[red_4['agent']]
-
-            red_5 = red_team[4]
-            red_5_stats = f"``{red_5['kills']}/{red_5['deaths']}/{red_5['assists']} \nACS = {red_5['ACS']}``"
-            red_5_emoji = emojis[red_5['agent']]
 
             
 
