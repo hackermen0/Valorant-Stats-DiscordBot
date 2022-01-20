@@ -107,54 +107,6 @@ class Valorant(commands.Cog):
 
         guild = self.client.get_guild(506485291914100737)
 
-        #All Emojis
-
-        astra = discord.utils.get(guild.emojis, name = 'astra')
-        breach = discord.utils.get(guild.emojis, name = 'breach')
-        brimstone = discord.utils.get(guild.emojis, name = 'brimstone')
-        chamber = discord.utils.get(guild.emojis, name = 'chamber')
-        cypher = discord.utils.get(guild.emojis, name = 'cypher')
-        jett = discord.utils.get(guild.emojis, name = 'jett')
-        kayo = discord.utils.get(guild.emojis, name = 'kayo')
-        killjoy = discord.utils.get(guild.emojis, name = 'killjoy')
-        omen = discord.utils.get(guild.emojis, name = 'omen')
-        phoenix = discord.utils.get(guild.emojis, name = 'phoenix')
-        raze = discord.utils.get(guild.emojis, name = 'raze')
-        reyna = discord.utils.get(guild.emojis, name = 'reyna')
-        sage = discord.utils.get(guild.emojis, name = 'sage')
-        skye = discord.utils.get(guild.emojis, name = 'skye')
-        sova = discord.utils.get(guild.emojis, name = 'sova')
-        viper = discord.utils.get(guild.emojis, name = 'viper')
-        yoru = discord.utils.get(guild.emojis, name = 'yoru')
-        neon = discord.utils.get(guild.emojis, name = 'neon')
-
-
-        #Emoji mapping 
-
-        emojis = {
-
-            'astra' : astra,
-            'breach' : breach,
-            'brimstone' : brimstone,
-            'chamber' : chamber,
-            'cypher' : cypher,
-            'jett' : jett,
-            'kay/o' : kayo,
-            'killjoy' : killjoy,
-            'omen' : omen,
-            'phoenix' : phoenix,
-            'raze' : raze,
-            'reyna' : reyna,
-            'sage' : sage,
-            'skye' : skye,
-            'sova' : sova,
-            'viper' : viper,
-            'yoru' : yoru,
-            'neon' : neon,
-        }
-
-        #Maps to image mapping
-
         maps = {
             'ascent' : 'https://titles.trackercdn.com/valorant-api/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/splash.png',
             'bind' : 'https://titles.trackercdn.com/valorant-api/maps/2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba/splash.png',
@@ -245,49 +197,47 @@ class Valorant(commands.Cog):
             red_team.sort(key = sort, reverse = True)
 
 
-            red_1 = red_team[0]
-            red_1_stats = f"``{red_1['kills']}/{red_1['deaths']}/{red_1['assists']} \nACS = {red_1['ACS']}``"
-            red_1_emoji = emojis[red_1['agent']]
-
-            red_2 = red_team[1]
-            red_2_stats = f"``{red_2['kills']}/{red_2['deaths']}/{red_2['assists']} \nACS = {red_2['ACS']}``"
-            red_2_emoji = emojis[red_2['agent']]
-
-            red_3 = red_team[2]
-            red_3_stats = f"``{red_3['kills']}/{red_3['deaths']}/{red_3['assists']} \nACS = {red_3['ACS']}``"
-            red_3_emoji = emojis[red_3['agent']]
-
-            red_4 = red_team[3]
-            red_4_stats = f"``{red_4['kills']}/{red_4['deaths']}/{red_4['assists']} \nACS = {red_4['ACS']}``"
-            red_4_emoji = emojis[red_4['agent']]
-
-            red_5 = red_team[4]
-            red_5_stats = f"``{red_5['kills']}/{red_5['deaths']}/{red_5['assists']} \nACS = {red_5['ACS']}``"
-            red_5_emoji = emojis[red_5['agent']]
-
-
-
-
             blue_1 = blue_team[0]
             blue_1_stats = f"``{blue_1['kills']}/{blue_1['deaths']}/{blue_1['assists']} \nACS = {blue_1['ACS']}``"
-            blue_1_emoji = emojis[blue_1['agent']]
+            blue_1_emoji = discord.utils.get(guild.emojis, name = blue_1['agent'])
 
             blue_2 = blue_team[1]
             blue_2_stats = f"``{blue_2['kills']}/{blue_2['deaths']}/{blue_2['assists']} \nACS = {blue_2['ACS']}``"
-            blue_2_emoji = emojis[blue_2['agent']]
+            blue_2_emoji = discord.utils.get(guild.emojis, name = blue_2['agent'])
 
             blue_3 = blue_team[2]
             blue_3_stats = f"``{blue_3['kills']}/{blue_3['deaths']}/{blue_3['assists']} \nACS = {blue_3['ACS']}``"
-            blue_3_emoji = emojis[blue_3['agent']]
+            blue_3_emoji = discord.utils.get(guild.emojis, name = blue_3['agent'])
 
             blue_4 = blue_team[3]
             blue_4_stats = f"``{blue_4['kills']}/{blue_4['deaths']}/{blue_4['assists']} \nACS = {blue_4['ACS']}``"
-            blue_4_emoji = emojis[blue_4['agent']]
+            blue_4_emoji = discord.utils.get(guild.emojis, name = blue_4['agent'])
 
             blue_5 = blue_team[4]
             blue_5_stats = f"``{blue_5['kills']}/{blue_5['deaths']}/{blue_5['assists']} \nACS = {blue_5['ACS']}``"
-            blue_5_emoji = emojis[blue_5['agent']]
+            blue_5_emoji = discord.utils.get(guild.emojis, name = blue_5['agent'])
 
+
+
+            red_1 = red_team[0]
+            red_1_stats = f"``{red_1['kills']}/{red_1['deaths']}/{red_1['assists']} \nACS = {red_1['ACS']}``"
+            red_1_emoji = discord.utils.get(guild.emojis, name = red_1['agent'])
+
+            red_2 = red_team[1]
+            red_2_stats = f"``{red_2['kills']}/{red_2['deaths']}/{red_2['assists']} \nACS = {red_2['ACS']}``"
+            red_2_emoji = discord.utils.get(guild.emojis, name = red_2['agent'])
+
+            red_3 = red_team[2]
+            red_3_stats = f"``{red_3['kills']}/{red_3['deaths']}/{red_3['assists']} \nACS = {red_3['ACS']}``"
+            red_3_emoji = discord.utils.get(guild.emojis, name = red_3['agent'])
+
+            red_4 = red_team[3]
+            red_4_stats = f"``{red_4['kills']}/{red_4['deaths']}/{red_4['assists']} \nACS = {red_4['ACS']}``"
+            red_4_emoji = discord.utils.get(guild.emojis, name = red_4['agent'])
+
+            red_5 = red_team[4]
+            red_5_stats = f"``{red_5['kills']}/{red_5['deaths']}/{red_5['assists']} \nACS = {red_5['ACS']}``"
+            red_5_emoji = discord.utils.get(guild.emojis, name = red_5['agent'])
 
             
 
