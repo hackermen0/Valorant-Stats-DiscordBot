@@ -257,8 +257,8 @@ class Test(commands.Cog):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    @commands.command(name = 'Test')
-    async def test(self, ctx):
+    @commands.command(name = 'comp')
+    async def comp(self, ctx):
 
         puuid = await get_puuid(ctx.author.id)
 
