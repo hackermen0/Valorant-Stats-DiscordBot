@@ -25,6 +25,6 @@ def moveImage(image1 : str, image2 : str):
     copy_im.paste(im1, (95, 50))
     copy_im.paste(im2, (0, 350))
 
-    copy_im.save('.\Images\send.png')
+    copy_im.save('./Images/send.png')
 
     
