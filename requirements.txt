@@ -1,3 +1,6 @@
 discord
 pymongo
 requests
+matplotlib
+Pillow
+bs4
