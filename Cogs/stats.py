@@ -233,11 +233,11 @@ def graph(puuid):
     plt.plot(final_list, label = 'funny', linestyle = 'dotted', color = 'white', linewidth = 2, marker = 'o', markerfacecolor = 'white')
 
     out = Image.new("RGBA", (460, 50), (0, 0, 0, 0))
-    d = ImageDraw.Draw(out)
+    image = ImageDraw.Draw(out)
 
 
     #draw the progress bar to given location, width, progress and color
-    d = drawProgressBar(d, 10, 10, 400, 25, rank_in_tier/100, bg = 'white', fg = '#53dbc7')
+    drawProgressBar(image, 10, 10, 400, 25, rank_in_tier/100, bg = 'white', fg = '#53dbc7')
 
     out.save('./Images/loading_bar.png')
     plt.savefig('./Images/mmr_graph.png')
