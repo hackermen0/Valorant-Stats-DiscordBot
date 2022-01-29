@@ -249,7 +249,7 @@ def graph(puuid):
 
 
 
-class Test(commands.Cog):
+class Stats(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -307,4 +307,4 @@ class Test(commands.Cog):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def setup(client):
-    client.add_cog(Test(client))
+    client.add_cog(Stats(client))
