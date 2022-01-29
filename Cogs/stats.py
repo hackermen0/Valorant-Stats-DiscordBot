@@ -239,10 +239,10 @@ def graph(puuid):
     #draw the progress bar to given location, width, progress and color
     d = drawProgressBar(d, 10, 10, 400, 25, rank_in_tier/100, bg = 'white', fg = '#53dbc7')
 
-    out.save('.\Images\loading_bar.png')
-    plt.savefig('.\Images\mmr_graph.png')
+    out.save('./Images/loading_bar.png')
+    plt.savefig('./Images/mmr_graph.png')
 
-    moveImage(f".\Ranks\{str(rank).replace(' ', '_')}.png", ".\Images\loading_bar.png")
+    moveImage(f"./Ranks/{str(rank).replace(' ', '_')}.png", "./Images/loading_bar.png")
     
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -289,14 +289,14 @@ class Stats(commands.Cog):
         
     
 
-        send = discord.File(".\Images\send.png")
+        send = discord.File("./Images/send.png")
        
         embed.set_image(url = 'attachment://send.png')
 
 
 
         mmr_embed = discord.Embed(type = 'image', color = discord.Color(0xfa4454))
-        mmr_graph = discord.File(".\Images\mmr_graph.png")  
+        mmr_graph = discord.File("./Images/mmr_graph.png")  
         
         mmr_embed.set_image(url = ('attachment://mmr_graph.png'))
 
