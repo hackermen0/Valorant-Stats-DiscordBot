@@ -30,13 +30,10 @@ def get_stats(username, tag, gamemode):
 
     kd_ratio = kd[0].split('K/D Ratio')[1].replace(' ', '')
 
-    
-
-    # most_kill_match = most_kill[0].split('Most Kills (Match)')[1].replace(' ', '')
 
     return win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent
 
-win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent = get_stats('巛 hackerman', '1010', 'competitive')
+
 
 
 
