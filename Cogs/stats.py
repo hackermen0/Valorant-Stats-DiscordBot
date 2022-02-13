@@ -196,7 +196,6 @@ def graph(puuid):
     top, final_list = filtering(puuid)
 
     final_list.reverse()
-    print(final_list)
 
     plt.figure(facecolor = '#2f3136')
 
@@ -260,45 +259,47 @@ class Stats(commands.Cog):
     @commands.command(name = 'comp')
     async def comp(self, ctx):
 
-        puuid = await get_puuid(ctx.author.id)
+        async with ctx.typing():
 
-        graph(puuid)
+            puuid = await get_puuid(ctx.author.id)
 
-        name, tag, rank, rank_in_tier, mmr_change, account_level, player_card = mmr(puuid)
+            graph(puuid)
 
-        win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent = get_stats(name, tag, gamemode = 'competitive')
+            name, tag, rank, rank_in_tier, mmr_change, account_level, player_card = mmr(puuid)
 
-        guild = self.client.get_guild(506485291914100737)
-    
-        rank_emoji = discord.utils.get(guild.emojis, name = str(rank).replace(' ', '_'))
-        top_agent_emoji = discord.utils.get(guild.emojis, name = top_agent.lower())
+            win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent = get_stats(name, tag, gamemode = 'competitive')
 
+            guild = self.client.get_guild(506485291914100737)
 
-
-        embed = discord.Embed(title = f'Stats for {name}#{tag}', color = discord.Color(0xfa4454))
-        embed.set_author(name = 'Competitive Stats', icon_url = ctx.author.avatar_url)
-        embed.set_thumbnail(url = player_card)
-        embed.add_field(name = 'Account Level:', value = account_level, inline = False)
-        embed.add_field(name = "Current rank:", value = f"{rank_emoji} {rank}", inline = True)
-        embed.add_field(name = "Current MMR:", value = f"{rank_in_tier}({mmr_change})", inline = True)
-        embed.add_field(name = 'K/D ratio:', value = kd_ratio, inline = True)
-        embed.add_field(name = 'Win %:', value = win_percentage, inline = True)
-        embed.add_field(name = 'Headshot %:', value = headshot_percentage, inline = True)
-        embed.add_field(name = 'Most Used Weapon:', value = top_weapon, inline = False)
-        embed.add_field(name = 'Most Used Agent:', value = f'{top_agent_emoji} {top_agent}', inline = True)
-        
-    
-
-        send = discord.File("./Images/send.png")
-       
-        embed.set_image(url = 'attachment://send.png')
+            rank_emoji = discord.utils.get(guild.emojis, name = str(rank).replace(' ', '_'))
+            top_agent_emoji = discord.utils.get(guild.emojis, name = top_agent.lower())
 
 
 
-        mmr_embed = discord.Embed(type = 'image', color = discord.Color(0xfa4454))
-        mmr_graph = discord.File("./Images/mmr_graph.png")  
-        
-        mmr_embed.set_image(url = ('attachment://mmr_graph.png'))
+            embed = discord.Embed(title = f'Stats for {name}#{tag}', color = discord.Color(0xfa4454))
+            embed.set_author(name = 'Competitive Stats', icon_url = ctx.author.avatar_url)
+            embed.set_thumbnail(url = player_card)
+            embed.add_field(name = 'Account Level:', value = account_level, inline = False)
+            embed.add_field(name = "Current rank:", value = f"{rank_emoji} {rank}", inline = True)
+            embed.add_field(name = "Current MMR:", value = f"{rank_in_tier}({mmr_change})", inline = True)
+            embed.add_field(name = 'K/D ratio:', value = kd_ratio, inline = True)
+            embed.add_field(name = 'Win %:', value = win_percentage, inline = True)
+            embed.add_field(name = 'Headshot %:', value = headshot_percentage, inline = True)
+            embed.add_field(name = 'Most Used Weapon:', value = top_weapon, inline = False)
+            embed.add_field(name = 'Most Used Agent:', value = f'{top_agent_emoji} {top_agent}', inline = True)
+            
+
+
+            send = discord.File("./Images/send.png")
+            
+            embed.set_image(url = 'attachment://send.png')
+
+
+
+            mmr_embed = discord.Embed(type = 'image', color = discord.Color(0xfa4454))
+            mmr_graph = discord.File("./Images/mmr_graph.png")  
+            
+            mmr_embed.set_image(url = ('attachment://mmr_graph.png'))
 
         await ctx.send(file = send, embed = embed)
         await ctx.send(file = mmr_graph, embed = mmr_embed)
