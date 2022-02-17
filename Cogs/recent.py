@@ -108,13 +108,13 @@ class Valorant(commands.Cog):
         guild = self.client.get_guild(506485291914100737)
 
         maps = {
-            'ascent' : 'https://titles.trackercdn.com/valorant-api/maps/7eaecc1b-4337-bbf6-6ab9-04b8f06b3319/splash.png',
-            'bind' : 'https://titles.trackercdn.com/valorant-api/maps/2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba/splash.png',
-            'breeze' : 'https://titles.trackercdn.com/valorant-api/maps/2fb9a4fd-47b8-4e7d-a969-74b4046ebd53/splash.png',
-            'fracture' : 'https://titles.trackercdn.com/valorant-api/maps/b529448b-4d60-346e-e89e-00a4c527a405/splash.png',
-            'haven' : 'https://titles.trackercdn.com/valorant-api/maps/2bee0dc9-4ffe-519b-1cbd-7fbe763a6047/splash.png',
-            'icebox' : 'https://titles.trackercdn.com/valorant-api/maps/e2ad5c54-4114-a870-9641-8ea21279579a/splash.png',
-            'split' : 'https://titles.trackercdn.com/valorant-api/maps/d960549e-485c-e861-8d71-aa9d1aed12a2/splash.png',
+            'ascent' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824828723507200/Ascent.png',
+            'bind' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824829394583602/Bind.png',
+            'breeze' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824830199902208/Breeze.png',
+            'fracture' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824830866784256/Fracture.png',
+            'haven' : 'https://cdn.discordapp.com/attachments/894851964406468669/943825215006334986/Haven.png',
+            'icebox' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824831667916820/Icebox.png',
+            'split' : 'https://cdn.discordapp.com/attachments/894851964406468669/943824832217382942/Split.png',
         }
         
         if match_filter not in match_filter_list:

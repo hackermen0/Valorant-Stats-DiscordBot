@@ -2,8 +2,7 @@ from pymongo import MongoClient
 import matplotlib.pyplot as plt
 from discord.ext import commands
 from PIL import Image, ImageDraw
-from Modules.PIL_functions import drawProgressBar
-from Modules.PIL_functions import moveImage
+from Modules.PIL_functions import drawProgressBar, moveImage
 from Modules.Valorant_stats import get_stats
 import discord
 import requests
