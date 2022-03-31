@@ -161,28 +161,35 @@ def mmr(puuid):
 
     link = f'https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}'
 
-    data = requests.get(link).json() 
+    http_proxy = 'https://203.192.217.11:8080'
 
-    # name = data['data']['name']
-    # tag = data['data']['tag']
 
-    # account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
+    proxies = {
+        "http" : http_proxy
+    }
+
+    data = requests.get(link, proxies = proxies).json() 
+
+    name = data['data']['name']
+    tag = data['data']['tag']
+
+    account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
 
     
     
-    # account_data = requests.get(account_link).json()
+    account_data = requests.get(account_link).json()
 
-    # rank = data['data']['current_data']['currenttierpatched']
-    # rank_in_tier = data['data']['current_data']['ranking_in_tier']
-    # mmr_change = data['data']['current_data']['mmr_change_to_last_game']
-    # account_level = account_data['data']['account_level']
-    # player_card = account_data['data']['card']['small']
+    rank = data['data']['current_data']['currenttierpatched']
+    rank_in_tier = data['data']['current_data']['ranking_in_tier']
+    mmr_change = data['data']['current_data']['mmr_change_to_last_game']
+    account_level = account_data['data']['account_level']
+    player_card = account_data['data']['card']['small']
 
-    # if mmr_change > 0:
-    #     mmr_change = '+' + str(mmr_change)
+    if mmr_change > 0:
+        mmr_change = '+' + str(mmr_change)
  
 
-    # return name, tag, rank, rank_in_tier, mmr_change, account_level, player_card
+    return name, tag, rank, rank_in_tier, mmr_change, account_level, player_card
 
     print(data)
 
