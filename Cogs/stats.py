@@ -170,7 +170,7 @@ def mmr(puuid):
 
     data = requests.get(link, proxies = proxies).json() 
 
-     print(data)
+    print(data)
 
     # name = data['data']['name']
     # tag = data['data']['tag']
