@@ -159,14 +159,12 @@ def filtering(puuid):
 
 
 
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+
 def mmr(puuid):
 
-    data = requests.get(
-        url='https://app.scrapingbee.com/api/v1/',
-        params={
-            'api_key': 'FPMJL8ADVPC0CKWZWQUMRT95OK2HDWPDU8G8W552QCYZUJGHKQ7DI7SD2GMJ6BFIYTKT24KC9Z08JSU8',
-            'url': f'https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}',  
-        }).json()
+    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}", headers = headers).json()
 
     
     
@@ -195,7 +193,6 @@ def mmr(puuid):
     return name, tag, rank, rank_in_tier, mmr_change, account_level, player_card
 
     
-
 
 
     
