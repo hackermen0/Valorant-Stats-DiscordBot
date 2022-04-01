@@ -166,7 +166,9 @@ def mmr(puuid):
 
     data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}", headers = headers).json()
 
-    
+
+
+    print(data)
     
 
     name = data['data']['name']
