@@ -164,7 +164,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 
 def mmr(puuid):
 
-    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}", headers = headers).json()
+    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}").json()
 
 
 
