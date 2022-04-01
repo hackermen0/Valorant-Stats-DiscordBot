@@ -164,7 +164,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 
 def mmr(puuid):
 
-    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}").json()
+    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}", headers = headers).json()
 
 
 
@@ -178,7 +178,7 @@ def mmr(puuid):
 
 
     
-    account_data = requests.get(account_link).json()
+    account_data = requests.get(account_link, headers =  headers).json()
 
     rank = data['data']['current_data']['currenttierpatched']
     rank_in_tier = data['data']['current_data']['ranking_in_tier']
