@@ -10,7 +10,7 @@ import os
 
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
-
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 cluster = MongoClient(os.getenv('MONGO_LINK'))
 
@@ -54,7 +54,7 @@ def filtering(puuid):
 
     mmrhist_link = f'https://api.henrikdev.xyz/valorant/v1/by-puuid/mmr-history/ap/{puuid}'
 
-    mmrhist_data = requests.get(mmrhist_link).json()
+    mmrhist_data = requests.get(mmrhist_link, headers = headers).json()
 
     elo_list = []
 
@@ -159,7 +159,7 @@ def filtering(puuid):
 
 
 
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
 
 
 def mmr(puuid):
