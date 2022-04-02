@@ -65,19 +65,20 @@ async def get_match(ctx, user_id : int, match_filter):
 
         if match_filter == None:
 
-            data = get(link, headers = headers).json()
-        
+            r = get(link)
+            data = r.json()
             return data
 
         else:
-            filtered_headers = {'filter' : match_filter, 'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'}
-            data = get(link, headers = filtered_headers).json()
+            headers = {'filter' : match_filter, 'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'}
+            r = get(link, headers)
+            data = r.json()
             return data
         
     except TypeError:
          await ctx.send('Link your discord account with your riot account using the .link command')
 
-
+         
 class Valorant(commands.Cog):
     
     def __init__(self, client):
