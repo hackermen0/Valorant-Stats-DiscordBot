@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 import os
 
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 match_filter_list = ['escalation', 'spikerush', 'deathmatch', 'competitive', 'unrated', 'replication', None]
 
@@ -26,9 +27,8 @@ def sort(e):
 def link_func(user_id : int, user : str, username : str, tag : str):
 
     link = f'https://api.henrikdev.xyz/valorant/v1/account/{username}/{tag}'
-    r = get(link)
+    data = get(link, headers = headers).json()
 
-    data = r.json()
     puuid = data['data']["puuid"]
 
     post = {
@@ -65,14 +65,13 @@ async def get_match(ctx, user_id : int, match_filter):
 
         if match_filter == None:
 
-            r = get(link)
-            data = r.json()
+            data = get(link, headers = headers).json()
+        
             return data
 
         else:
-            headers = {'filter' : match_filter}
-            r = get(link, headers)
-            data = r.json()
+            filtered_headers = {'filter' : match_filter, 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+            data = get(link, headers = filtered_headers).json()
             return data
         
     except TypeError:

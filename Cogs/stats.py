@@ -164,7 +164,9 @@ def filtering(puuid):
 
 def mmr(puuid):
 
-    data = requests.get(f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}", headers = headers).json()
+    mmr_link = f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}"
+
+    data = requests.get(mmr_link, headers = headers).json()
 
 
     name = data['data']['name']
