@@ -67,14 +67,12 @@ async def get_match(ctx, user_id : int, match_filter):
 
             r = get(link, headers = headers)
             data = r.json()
-            print(r.status_code,data)
             return data
 
         else:
-            filtered_headers = {'filter' : match_filter, 'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'}
+            filtered_headers = {'filter' : match_filter, 'User-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'}
             r = get(link, filtered_headers)
             data = r.json()
-            print(r.status_code,data)
             return data
         
     except TypeError:
