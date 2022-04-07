@@ -3,14 +3,15 @@ import matplotlib.pyplot as plt
 from discord.ext import commands
 from PIL import Image, ImageDraw
 from Modules.PIL_functions import drawProgressBar, moveImage
-from Modules.Valorant_stats import get_stats
+from Modules.data import get_stats, agent_data
 import discord
 import requests
 import os
 
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.52'}
 
 cluster = MongoClient(os.getenv('MONGO_LINK'))
 
@@ -27,7 +28,6 @@ async def get_puuid(user_id : int, ctx = None):
     try:
 
         puuid = user_data['puuid']
-
         return puuid
         
     except TypeError:
@@ -157,26 +157,32 @@ def filtering(puuid):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+def account_data(puuid):
 
+    link = f'https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}'
 
-
-
-
-def mmr(puuid):
-
-    mmr_link = f"https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}"
-
-    data = requests.get(mmr_link, headers = headers).json()
-
+    data = requests.get(link, headers = headers).json() 
 
     name = data['data']['name']
     tag = data['data']['tag']
 
-    account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
+    return name, tag
 
 
+def mmr(puuid):
+
+    link = f'https://api.henrikdev.xyz/valorant/v2/by-puuid/mmr/ap/{puuid}'
+
+
+    data = requests.get(link, headers = headers).json() 
     
-    account_data = requests.get(account_link, headers =  headers).json()
+    name = data['data']['name']
+    tag = data['data']['tag']
+
+
+    account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
+     
+    account_data = requests.get(account_link).json()
 
     rank = data['data']['current_data']['currenttierpatched']
     rank_in_tier = data['data']['current_data']['ranking_in_tier']
@@ -186,27 +192,24 @@ def mmr(puuid):
 
     if mmr_change > 0:
         mmr_change = '+' + str(mmr_change)
-
-
-
+ 
 
     return name, tag, rank, rank_in_tier, mmr_change, account_level, player_card
 
-    
-
-
-    
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 def graph(puuid):
 
+
+
     name, tag, rank, rank_in_tier, mmr_change, account_level, player_card = mmr(puuid)
 
     top, final_list = filtering(puuid)
 
     final_list.reverse()
+    print(final_list)
 
     plt.figure(facecolor = '#2f3136')
 
@@ -259,7 +262,7 @@ def graph(puuid):
 
 
 
-class Stats(commands.Cog):
+class Comp(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -267,8 +270,8 @@ class Stats(commands.Cog):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    @commands.command(name = 'comp')
-    async def comp(self, ctx):
+    @commands.command(name = 'Test')
+    async def test(self, ctx):
 
         guild = self.client.get_guild(506485291914100737)
         loading_emoji = discord.utils.get(guild.emojis, name = 'loading')
@@ -282,7 +285,8 @@ class Stats(commands.Cog):
 
         win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent = get_stats(name, tag, gamemode = 'competitive')
 
-
+        guild = self.client.get_guild(506485291914100737)
+    
         rank_emoji = discord.utils.get(guild.emojis, name = str(rank).replace(' ', '_'))
         top_agent_emoji = discord.utils.get(guild.emojis, name = top_agent.lower())
 
@@ -300,16 +304,16 @@ class Stats(commands.Cog):
         embed.add_field(name = 'Most Used Weapon:', value = top_weapon, inline = False)
         embed.add_field(name = 'Most Used Agent:', value = f'{top_agent_emoji} {top_agent}', inline = True)
         
+    
 
-
-        send = discord.File("./Images/send.png")
-        
+        send = discord.File(".\Images\send.png")
+    
         embed.set_image(url = 'attachment://send.png')
 
 
 
         mmr_embed = discord.Embed(type = 'image', color = discord.Color(0xfa4454))
-        mmr_graph = discord.File("./Images/mmr_graph.png")  
+        mmr_graph = discord.File(".\Images\mmr_graph.png")  
         
         mmr_embed.set_image(url = ('attachment://mmr_graph.png'))
 
@@ -318,7 +322,26 @@ class Stats(commands.Cog):
         await ctx.send(file = mmr_graph, embed = mmr_embed)
 
 
+    @commands.command(name = 'comp_agent')
+    async def comp_agent(self, ctx):
+
+            embed = discord.Embed(title = "Agent Stats")
+
+            puuid = await get_puuid(ctx.author.id)
+
+            name, tag = account_data(puuid)
+
+            all_agent_data = agent_data(name, tag , gamemode = 'comeptitive')
+
+            for agent in all_agent_data:
+                guild = self.client.get_guild(506485291914100737)
+                agent_emoji = discord.utils.get(guild.emojis, name = str(agent[0]).lower())
+                embed.add_field(name = f"{agent_emoji} {agent[0]}:", value = f"**Time played** - {agent[1][0].replace('Played', '')}\n**Matches Played** - {agent[1][1]}\n**Win %** - {agent[1][2]}\n**K/D Ratio** - {agent[1][3]}\n**KDA** - {agent[1][4]}\n**ADR** - {agent[1][5]}\n**ACS** - {agent[1][6]}", inline = False)
+
+            await ctx.send(embed = embed)
+
+
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def setup(client):
-    client.add_cog(Stats(client))
+    client.add_cog(Comp(client))
