@@ -182,7 +182,7 @@ def mmr(puuid):
 
     account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
      
-    account_data = requests.get(account_link).json()
+    account_data = requests.get(account_link, headers = headers).json()
 
     rank = data['data']['current_data']['currenttierpatched']
     rank_in_tier = data['data']['current_data']['ranking_in_tier']
@@ -270,7 +270,7 @@ class Comp(commands.Cog):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    @commands.command(name = 'Test')
+    @commands.command(name = 'comp')
     async def test(self, ctx):
 
         guild = self.client.get_guild(506485291914100737)
