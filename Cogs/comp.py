@@ -331,7 +331,9 @@ class Comp(commands.Cog):
 
             name, tag = account_data(puuid)
 
-            all_agent_data = agent_data(name, tag , gamemode = 'comeptitive')
+
+            all_agent_data = agent_data(name, tag, 'competitive')
+
 
             for agent in all_agent_data:
                 guild = self.client.get_guild(506485291914100737)

@@ -49,7 +49,7 @@ for filename in os.listdir('./Cogs'):
         
       except:
           
-          print(f'Couldnt load {filename}')
+          print(f'Couldnt load {filename}') 
           
 #-------------------------------------------------------------------------------------------------------------------------
 
