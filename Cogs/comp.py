@@ -306,14 +306,14 @@ class Comp(commands.Cog):
         
     
 
-        send = discord.File(".\Images\send.png")
+        send = discord.File("./Images/send.png")
     
         embed.set_image(url = 'attachment://send.png')
 
 
 
         mmr_embed = discord.Embed(type = 'image', color = discord.Color(0xfa4454))
-        mmr_graph = discord.File(".\Images\mmr_graph.png")  
+        mmr_graph = discord.File("./Images/mmr_graph.png")  
         
         mmr_embed.set_image(url = ('attachment://mmr_graph.png'))
 
