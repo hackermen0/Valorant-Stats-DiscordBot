@@ -5,7 +5,7 @@ from discord.ext import commands
 client = commands.Bot(command_prefix = '.',  case_insensitive=True, help_command = None)
 
 
-
+#nice
 #-------------------------------------------------------------------------------------------------------------------------
 
 #creating a check so only my user can execute the commands in this file
