@@ -166,7 +166,14 @@ def account_data(puuid):
     name = data['data']['name']
     tag = data['data']['tag']
 
-    return name, tag
+    account_link = f'https://api.henrikdev.xyz/valorant/v1/account/{name}/{str(tag)}'
+     
+    account_data = requests.get(account_link, headers = headers).json()
+
+    player_card = account_data['data']['card']['small']
+    
+
+    return name, tag, player_card
 
 
 def mmr(puuid):
@@ -303,6 +310,7 @@ class Comp(commands.Cog):
         embed.add_field(name = 'Headshot %:', value = headshot_percentage, inline = True)
         embed.add_field(name = 'Most Used Weapon:', value = top_weapon, inline = False)
         embed.add_field(name = 'Most Used Agent:', value = f'{top_agent_emoji} {top_agent}', inline = True)
+        embed.set_footer(text = f'Requested by {ctx.author}')
         
     
 
@@ -325,12 +333,16 @@ class Comp(commands.Cog):
     @commands.command(name = 'comp_agent')
     async def comp_agent(self, ctx):
 
-            embed = discord.Embed(title = "Agent Stats")
+            
 
             puuid = await get_puuid(ctx.author.id)
 
-            name, tag = account_data(puuid)
+            name, tag, player_card = account_data(puuid)
 
+            embed = discord.Embed(title = f"Agent Stats for {name}#{tag}")
+            embed.set_author(name = 'Competitive Stats', icon_url = ctx.author.avatar_url)
+            embed.set_thumbnail(url = player_card)
+            embed.set_footer(text = f'Requested by {ctx.author}')
 
             all_agent_data = agent_data(name, tag, 'competitive')
 
