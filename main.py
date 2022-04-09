@@ -5,7 +5,6 @@ from discord.ext import commands
 client = commands.Bot(command_prefix = '.',  case_insensitive=True, help_command = None)
 
 
-# SlashCommand.sync_all_commands
 
 #-------------------------------------------------------------------------------------------------------------------------
 
