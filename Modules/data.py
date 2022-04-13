@@ -30,6 +30,10 @@ def get_stats(username, tag, gamemode):
 
     kd_ratio = kd[0].split('K/D Ratio')[1].replace(' ', '')
 
+    print(data, soup)
+
+    print(win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent)
+
 
     return win_percentage, headshot_percentage, kd_ratio, top_weapon, top_agent
 
